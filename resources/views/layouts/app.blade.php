@@ -23,7 +23,7 @@
             @yield('content')
         </main>
         <footer class="flex justify-center mt-8">
-            <!-- <p class="txt">© {{ date('Y') }}</p> -->
+            <!--  -->
         </footer>
     </body>
 </html>
