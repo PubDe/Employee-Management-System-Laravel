@@ -1,27 +1,29 @@
 <?php
 
-use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Password;
 use App\Http\Middleware\PreventBackHistory;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\DepartmentController;
+
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('/', function () {
-        return view('auth.login');
-    })->name('login');
-
-    Route::get('/forgot-password', [UserController::class, 'signupPage']);
+    Route::get('/', [LoginController::class, 'index'])->name('login');
 
     Route::get('/signup-page', [UserController::class, 'signupPage']);
 
     Route::post('/sign-up', [UserController::class, 'signup']);
 
     Route::post('/login', [UserController::class, 'login']);
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'index']);
 
     Route::post('/password-reset-pin', [ForgotPasswordController::class, 'resetPin']);
 
@@ -31,30 +33,18 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/submit-reset-password', [ForgotPasswordController::class, 'submitResetPassword']);
 
-    Route::get('/reset-password/{token}', function (string $token) {
-        return view('auth.reset-password', ['token'=>$token]);
-    })->name('password.reset');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 
-    Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-    });
 });
 
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(PreventBackHistory::class);
+    Route::get('/dashboard', [UserController::class, 'viewDashboard'])->middleware(PreventBackHistory::class);
 
-    Route::get('/view-employees', function () {
-        $employees = Employee::paginate(5);
-        return view('view-employees', ['employees'=>$employees]);
-    });
+    Route::get('/view-employees', [EmployeeController::class, 'viewEmployee']);
 
-    Route::get('/add', function () {
-        return view('add-employee');
-    });
+    Route::get('/add', [EmployeeController::class, 'addEmployeePage']);
 
     Route::get('/edit-employee/{employee}', [EmployeeController::class, 'editEmployee']);
 
@@ -64,11 +54,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/add-employee', [EmployeeController::class, 'addEmployee']);
 
-    Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-    });
+    Route::post('/logout', [LogoutController::class,'logout']);
 
+    Route::get('/department-status', [DepartmentController::class, 'index']);
+
+    Route::get('/department-status/{id}', [DepartmentController::class, 'getStatus']);
 
 });
 
