@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Throwable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,9 +52,7 @@ class UserController extends Controller
 
     //sign-in
     public function login(Request $request){
-
-        try {
-            
+       
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required',
@@ -81,6 +81,7 @@ class UserController extends Controller
                 
             }
 
+        try {
             RateLimiter::clear($key);
             $request->session()->regenerate();
 
@@ -95,5 +96,10 @@ class UserController extends Controller
                     logger()->critical($e->getMessage());
             }
 
+    }
+
+    //view dashboard
+    public function viewDashboard(){
+        return view('dashboard');
     }
 }
