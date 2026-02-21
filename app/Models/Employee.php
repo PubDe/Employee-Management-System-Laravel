@@ -15,5 +15,33 @@ class Employee extends Model
         'age',
         'dob',
         'role',
+        'department_id',
+        'designation_id',
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function salaryStructure()
+    {
+        return $this->hasOne(SalaryStructure::class);
+    }
+
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class);
+    }
+
 }

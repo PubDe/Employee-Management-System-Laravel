@@ -12,6 +12,9 @@
             <a href="/view-employees" class="block btn-primary">
                 View Employees
             </a>
+            <a href="/department-status" class="block btn-primary">
+                Department Status
+            </a>
         </div>
 
     @if(session('success'))

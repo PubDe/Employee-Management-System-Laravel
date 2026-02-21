@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 use Throwable;
 use Carbon\Carbon;
 use App\Models\User;
@@ -15,6 +17,11 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class ForgotPasswordController extends Controller
 {
+    //forgot password page
+    public function index(){
+        return view('auth.forgot-password');
+    }
+
 
     //send reset link
     public function sendResetLink(Request $request){
