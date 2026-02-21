@@ -27,21 +27,23 @@
                         <th class="th">Phone</th>
                         <th class="th">DOB</th>
                         <th class="th">Role</th>
+                        <th class="th">Department</th>
                         <th class="th"></th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($employees as $employee)
                     <tr class="hover:bg-gray-50">
-                        <td class="td">{{ $employee->id }}</td>
+                        <td class="td">{{ $employee->employee_code }}</td>
                         <td class="td">{{ $employee->name }}</td>
                         <td class="td">{{ $employee->email }}</td>
                         <td class="td">{{ $employee->age }}</td>
                         <td class="td">{{ $employee->phone }}</td>
                         <td class="td">{{ $employee->dob }}</td>
                         <td class="td">{{ $employee->role }}</td>
+                        <td class="td">{{ $employee->department }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center flex justify-center gap-2">
-                            <a href="/edit-employee/{{ $employee->id }}"
+                            <a href="/edit-employee/{{ $employee->id }}?page={{request('page', 1)}}"
                                class="btn-edit">
                                 Edit
                             </a>
