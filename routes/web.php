@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'viewDashboard'])->middleware(PreventBackHistory::class);
 
-    Route::get('/view-employees', [EmployeeController::class, 'viewEmployee']);
+    Route::get('/view-employees', [EmployeeController::class, 'viewEmployee'])->name('view-employees');
 
     Route::get('/add', [EmployeeController::class, 'addEmployeePage']);
 
