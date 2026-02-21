@@ -93,9 +93,9 @@
 }
 
 .th {
-    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    @apply px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
 }
 
 .td {
-    @apply px-6 py-4 whitespace-nowrap text-gray-700;
+    @apply px-3 py-4 whitespace-nowrap text-gray-700 text-sm;
 }
