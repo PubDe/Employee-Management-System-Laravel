@@ -10,6 +10,7 @@
                 <form action="/edit-employee/{{ $employee->id }}" method="POST" class="space-y-1">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="page" value="{{ $page }}">
                     <label for="name" class="label">Name : </label>
                     <input class="input-field" type="text" name="name" value="{{ $employee->name }}"><br>
                     @error('name')
@@ -44,24 +45,44 @@
 
                     <label for="dob" class="label">Date of Birth : </label>
                     <input class="input-field" type="date" name="dob" value="{{ $employee->dob }}"><br>
-                    @error('phone')
+                    @error('dob')
                         <div style="color:red;">
                             {{ $message }}
                         </div>
                     @enderror
 
                     <label for="role" class="label">Role : </label>
-                        <select class="input-field" id="role" name="role" value="{{ $employee->role }}">
-                            <option value="Manager">Manager</option>
-                            <option value="Exective">Exective </option>
-                            <option value="General Staff">General Staff </option>
-                            <option value="Junior">Junior</option>
+                        <select class="input-field" id="role" name="designation_id" value="{{ $employee->role }}">
+
+                                @foreach($designations as $designation)
+                                    @if($employee->role != $designation->title){
+                                        <option value="{{ $designation->id }}">
+                                            {{ $designation->title }}
+                                        </option>
+                                    }
+                                    @endif
+                                @endforeach
                         </select><br>
-                    @error('phone')
+                    @error('designation_id')
                         <div style="color:red;">
                             {{ $message }}
                         </div>
                     @enderror
+
+                    <label for="department" class="label">Department : </label>
+                        <select class="input-field" id="department" name="department_id">
+                                @foreach($departments as $department)
+                                        <option value="{{ $department->id }}" {{ $department->id == $employee->department_id ? "Selected":""}}>
+                                            {{ $department->name }}
+                                        </option>
+                                @endforeach
+                        </select><br>
+                    @error('department_id')
+                        <div style="color:red;">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
                         <div class="flex justify-center gap-4 mt-6">
                             <a  class="btn-back w-1/2" href="/view-employees"> Back </a>
                             <button class="btn-primary w-1/2">Save</button>

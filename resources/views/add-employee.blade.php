@@ -12,7 +12,6 @@
 
                 <form method="POST" action="/add-employee" class="space-y-2">
                     @csrf
-
                     <!-- Name -->
                     <div>
                         <label class="label" for="name">Name</label>
@@ -86,13 +85,29 @@
                     <!-- Role -->
                     <div>
                         <label class="label" for="role">Role</label>
-                        <select id="role" name="role" class="input-field">
-                            <option value="Manager">Manager</option>
-                            <option value="Exective">Executive</option>
-                            <option value="General Staff">General Staff</option>
-                            <option value="Junior">Junior</option>
+                        <select id="role" name="designation_id" class="input-field">
+                                @foreach($designations as $designation)
+                                    <option value="{{ $designation->id }}">
+                                        {{ $designation->title }}
+                                    </option>
+                                @endforeach
                         </select>
-                        @error('role')
+                        @error('designation_id')
+                            <p class="text-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Department -->
+                    <div>
+                        <label class="label" for="department">Department</label>
+                        <select id="department" name="department_id" class="input-field">
+                                @foreach($departments as $department)
+                                    <option value="{{ $department->id }}">
+                                        {{ $department->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                        @error('department_id')
                             <p class="text-error">{{ $message }}</p>
                         @enderror
                     </div>
