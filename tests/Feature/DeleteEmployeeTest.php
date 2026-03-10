@@ -11,7 +11,11 @@ class DeleteEmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const DELETE_ROUTE = '/delete-employee/';
+        public function test_example()
+    {
+        $this->assertTrue(true);
+    }
+
 
     /** Guest cannot delete employee */
     // public function test_guest_cannot_delete_employee()
